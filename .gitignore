@@ -1,0 +1,15 @@
+# Build artifacts
+phase1
+phase2
+phase3
+phase4
+*.o
+*.out
+*.log
+
+# Editor / OS files
+.DS_Store
+
+# Python cache
+__pycache__/
+*.pyc
