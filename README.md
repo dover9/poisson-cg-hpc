@@ -38,19 +38,38 @@ The resulting linear system **Au = b** is large, sparse, and SPD → ideal for C
 
 ## Repository Structure
 
-```
+```text
 .
-├── phase1.cpp
-├── phase2.cpp
-├── phase3.cpp
-├── phase4.cpp
+├── README.md
+├── .gitignore
+├── docs/
+│   ├── Final_Project_Proposal.pdf
+│   └── Pcg Project Guide.pdf
+├── src/
+│   ├── phase1.cpp          # CPU serial CG
+│   ├── phase2.cpp          # MPI (CPU) CG
+│   ├── phase3.cpp          # single-GPU CG
+│   └── phase4.cpp          # MPI + GPU CG with timing breakdown
+├── scripts/
+│   ├── analyze_cg.py       # strong scaling + runtime breakdown plots
+│   ├── convergence.py      # convergence vs grid size + phase speedup figure
+│   ├── roofline_cg.py      # roofline model for apply_A
+│   └── utils.py            # small helpers (paths, savefig)
 ├── results/
-├── plots/
-├── analyze_cg.py
-├── convergence.py
-├── roofline_cg.py
-├── utils.py
-└── README.md
+│   ├── results_phase1.csv
+│   ├── results_phase2.csv
+│   ├── results_phase3.csv
+│   ├── results_phase4.csv
+│   └── results_phase4_with_roofline.csv
+└── figures/
+    ├── convergence_iters_vs_N.png
+    ├── speedup_by_phase_N4097.png
+    ├── strong_scaling_time_per_iter.png
+    ├── strong_scaling_speedup.png
+    ├── strong_scaling_efficiency.png
+    ├── breakdown_pie_P8.png
+    ├── breakdown_stacked.png
+    └── roofline_applyA.png
 ```
 
 ---
