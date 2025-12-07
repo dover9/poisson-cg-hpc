@@ -178,10 +178,3 @@ python3 roofline_cg.py
 - A natural extension is **multigrid preconditioning**.
 
 ---
-
-## License
-
-You may include the license of your choice (MIT recommended).
-
----
-
