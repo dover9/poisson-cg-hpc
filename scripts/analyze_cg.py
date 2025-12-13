@@ -74,11 +74,6 @@ def main():
     plt.title(f"Parallel efficiency of CG (N={N_strong})")
     plt.xticks(dfN["nprocs"], dfN["nprocs"])
     plt.grid(True, axis='y', linestyle='--', alpha=0.4)
-    plt.figtext(
-        0.5, -0.10,
-        r'$T(P)$ = wall-clock time per CG iteration for fixed $N=4097$',
-        ha='center', fontsize=10
-    )
     plt.tight_layout()
     savefig("strong_scaling_efficiency.png")
     plt.show()

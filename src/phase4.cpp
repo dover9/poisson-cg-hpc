@@ -504,9 +504,14 @@ void cg_solve(int Nx,
     const double h2     = h * h;
     const double inv_h2 = 1.0 / h2;
 
+    const int dot_size = owned * Ny;
+    const double* d_r_dot  = dev.d_r  + Ny;  // skip top halo
+    const double* d_p_dot  = dev.d_p  + Ny;
+    const double* d_Ap_dot = dev.d_Ap + Ny;
+
     // Initial residual: r = b - A u, but u was zero and dev.d_r already has b.
     double t0_dot = MPI_Wtime();
-    double rho    = dot(dev.d_r, dev.d_r, dev.d_sum, local_size, dot_times);
+    double rho    = dot(d_r_dot, d_r_dot, dev.d_sum, dot_size, dot_times);
     double t1_dot = MPI_Wtime();
 
     timer.t_dot_init = t1_dot - t0_dot;
@@ -549,7 +554,7 @@ void cg_solve(int Nx,
 
         // 3. alpha = (r,r) / (p,Ap)
         t0_dot = MPI_Wtime();
-        double p_dot_Ap = dot(dev.d_p, dev.d_Ap, dev.d_sum, local_size, dot_times);
+        double p_dot_Ap = dot(d_p_dot, d_Ap_dot, dev.d_sum, dot_size, dot_times);
         t1_dot = MPI_Wtime();
 
         const double dt_pAp = t1_dot - t0_dot;
@@ -583,7 +588,7 @@ void cg_solve(int Nx,
 
         // 6. new_rho = (r,r), check convergence
         t0_dot = MPI_Wtime();
-        double new_rho = dot(dev.d_r, dev.d_r, dev.d_sum, local_size, dot_times);
+        double new_rho = dot(d_r_dot, d_r_dot, dev.d_sum, dot_size, dot_times);
         t1_dot = MPI_Wtime();
 
         const double dt_rr = t1_dot - t0_dot;
